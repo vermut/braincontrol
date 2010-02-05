@@ -38,7 +38,7 @@ public class BRCommanderForm implements ButtonListener {
     private JButton applyButton;
     private JTabbedPane tabbedPane;
     private JToggleButton testModeButton;
-    private JLabel BR_timeLabel;
+    public JLabel BR_timeLabel;
     JPanel GM_queue;
     JButton GM_playButton;
     JButton GM_pauseButton;
@@ -50,19 +50,19 @@ public class BRCommanderForm implements ButtonListener {
     JButton GM_a1Button;
     JButton GM_a2Button;
     public JLabel GM_Timer;
-    private ClockDisplay bigClock;
+    public ClockDisplay BR_bigClock;
     JPanel BR_MainPanel;
     JPanel BR_ClockPanel;
     JPanel BR_ScoreTable;
     public JToggleButton BR_newQuestionButton;
-    private JButton BR_Add1;
-    private JButton BR_Dec1;
-    private JButton BR_startTimeButton;
+     JButton BR_Add1;
+     JButton BR_Dec1;
+    public JToggleButton BR_startTimeButton;
     JButton BR_resetButton;
-    private JButton BR_Dec10;
-    private JButton BR_Add10;
+     JButton BR_Dec10;
+     JButton BR_Add10;
 
-    BRController controller;
+    public BRController controller;
     public State currentState;
     private JCheckBox[] teamEnabled = {teamEnabled1, teamEnabled2, teamEnabled3, teamEnabled4, teamEnabled5, teamEnabled6, teamEnabled7, teamEnabled8};
     private JTextField[] teamName = {teamName1, teamName2, teamName3, teamName4, teamName5, teamName6, teamName7, teamName8};
@@ -174,4 +174,5 @@ public class BRCommanderForm implements ButtonListener {
     public String getTeamName(int teamNo) {
         return teamName[teamNo].getText();
     }
+
 }

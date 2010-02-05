@@ -13,7 +13,7 @@ import java.util.Calendar;
  */
 public class ClockDisplay extends JPanel
 {
-   int hours, minutes, seconds;
+   public int hours, minutes, seconds;
    int centerX, centerY;
    int rClock, rNumbers, rHourHand, rMinHand, rSecHand;
    double angle;
@@ -29,11 +29,11 @@ public class ClockDisplay extends JPanel
       width2 = g.getFontMetrics().stringWidth("00");
       height = g.getFontMetrics().getAscent();
 
-      Calendar cal = Calendar.getInstance();
-      hours = cal.get(Calendar.HOUR);
-      minutes =  cal.get(Calendar.MINUTE);
-      seconds = cal.get(Calendar.SECOND);
-      repaint();
+//      Calendar cal = Calendar.getInstance();
+//      hours = cal.get(Calendar.HOUR);
+//      minutes =  cal.get(Calendar.MINUTE);
+//      seconds = cal.get(Calendar.SECOND);
+//      repaint();
    }
 
    public void paintComponent(Graphics g)
@@ -55,7 +55,7 @@ public class ClockDisplay extends JPanel
 
       // draw the numbers
       g.setFont(f);
-      g.setColor(Color.red);
+      g.setColor(Color.black);
       for (int i=0; i<12; i++)
       {
         int j = (i+3)%12;

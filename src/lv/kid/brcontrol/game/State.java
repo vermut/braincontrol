@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 public abstract class State implements ButtonListener, ActionListener {
     protected BRController controller;
     protected Timer timer = new Timer(1000, this);
-    protected int timeLeft;
+    public int timeLeft;
 
     public State(BRController controller) {
         this.controller = controller;
@@ -50,6 +50,7 @@ public abstract class State implements ButtonListener, ActionListener {
     }
 
     @Override
+    // Timer ticks
     public void actionPerformed(ActionEvent actionEvent) {
         timeLeft--;
         displayTime();
@@ -78,7 +79,7 @@ public abstract class State implements ButtonListener, ActionListener {
         timer.stop();
     }
 
-    protected void resumeTimer() {
+    public void resumeTimer() {
         timer.start();
     }
 }

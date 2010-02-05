@@ -2,12 +2,12 @@ package lv.kid.brcontrol;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import lv.kid.brcontrol.game.BrainRingQuestionState;
-import lv.kid.brcontrol.game.BrainRingIdleState;
+import lv.kid.brcontrol.game.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,6 +38,7 @@ public class BrainRing {
         for (int i = 0; i < teams.length; i++) {
             teams[i] = new Team(form.controller, i);
             createTeamUI(teams[i], (i * 2) + 1);
+            teams[i].show(false);
         }
 
         form.BR_newQuestionButton.addActionListener(new ActionListener() {
@@ -48,22 +49,51 @@ public class BrainRing {
                     form.currentState = new BrainRingQuestionState(form.controller, form);
                     form.BR_newQuestionButton.setSelected(false);
                 } else {
-                    if (form.currentState instanceof BrainRingIdleState) {
-                        BrainRingIdleState brainRingIdleState = (BrainRingIdleState) form.currentState;
-                        form.currentState = brainRingIdleState.previousState;
+                    if (form.currentState instanceof BrainRingQuestionIdleState) {
+                        BrainRingQuestionIdleState brainRingQuestionIdleState = (BrainRingQuestionIdleState) form.currentState;
+                        brainRingQuestionIdleState.resumeState();
+
                     }
                 }
             }
         });
-
-        form.BR_resetButton.addActionListener(new ActionListener() {
+        form.BR_startTimeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                for (Team team : teams) {
-                    team.reset();
+                if (form.BR_startTimeButton.isSelected()) {
+                    int timeLeft = form.currentState.timeLeft;
+                    form.currentState = new BrainRingAnswerState(form.controller, form);
+                    form.currentState.timeLeft = timeLeft;
+                    form.BR_startTimeButton.setSelected(false);
+                } else {
+                    if (form.currentState instanceof BrainRingAnswerIdleState) {
+                        BrainRingAnswerIdleState brainRingAnswerIdleState = (BrainRingAnswerIdleState) form.currentState;
+                        brainRingAnswerIdleState.resumeState();
+                    }
                 }
             }
         });
+        form.BR_resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                form.BR_newQuestionButton.setEnabled(true);
+                form.BR_newQuestionButton.setSelected(false);
+
+                form.BR_startTimeButton.setEnabled(false);
+                form.BR_startTimeButton.setSelected(false);
+
+                for (Team team : teams) {
+                    team.reset();
+                    form.currentState.cleanUp();
+                    form.currentState = new NoState(form.controller);
+                }
+            }
+        });
+
+        form.BR_Add1.addActionListener(new TimeActionListener(1));
+        form.BR_Dec1.addActionListener(new TimeActionListener(-1));
+        form.BR_Add10.addActionListener(new TimeActionListener(10));
+        form.BR_Dec10.addActionListener(new TimeActionListener(-10));
 
     }
 
@@ -121,6 +151,7 @@ public class BrainRing {
         private final BRController controller;
         private final int teamNo;
         private static final String FALSTART = "Falstart";
+        private static final String ANSWER = "Answer!";
 
         public Team(BRController controller, int i) {
             this.controller = controller;
@@ -210,6 +241,31 @@ public class BrainRing {
             status.setText(FALSTART);
             status.setSelected(true);
             controller.setText(BRController.teamToByte(teamNo), 2, FALSTART);
+            highlight(true);
+        }
+
+        public void answered() {
+            status.setText(ANSWER);
+            status.setSelected(true);
+            controller.setText(BRController.teamToByte(teamNo), 2, ANSWER);
+            highlight(true);
+        }
+
+        public void highlight(boolean b) {
+            teamName.setBackground(b ? Color.red : null);
+        }
+    }
+
+    private class TimeActionListener implements ActionListener {
+        private final int timeShift;
+
+        private TimeActionListener(int timeShift) {
+            this.timeShift = timeShift;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            form.currentState.timeLeft += timeShift;
         }
     }
 }
