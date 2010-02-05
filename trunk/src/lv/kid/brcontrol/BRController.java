@@ -134,6 +134,11 @@ public class BRController {
         message('P', ports, "");
     }
 
+    public void reset() {
+        message('R', (byte) 0, "");
+    }
+
+
     private synchronized void message(char command, byte port, String message) {
         // a vot tyt grjaznij hack
         // ciferki na korobochke okazalis' naoborot
