@@ -11,9 +11,7 @@ import lv.kid.brcontrol.BrainRing;
  * Time: 19:22:23
  * To change this template use File | Settings | File Templates.
  */
-public class BrainRingQuestionState extends State {
-    private final BrainRing brainRing;
-    private final BRCommanderForm form;
+public class BrainRingQuestionState extends BrainRingImpl {
 
     public BrainRingQuestionState(BRController controller, BRCommanderForm form) {
         super(controller);
@@ -26,6 +24,11 @@ public class BrainRingQuestionState extends State {
 
         timeLeft = 60;
         displayTime();
+        super.actionPerformed(null);
+        
+        form.BR_startTimeButton.setSelected(false);
+        form.BR_startTimeButton.setEnabled(true);
+        form.BR_bigClock.init();
     }
 
     @Override
@@ -37,14 +40,7 @@ public class BrainRingQuestionState extends State {
         brainRing.teams[teamNo].falstart();
 
         // Ignore others
-        form.currentState = new BrainRingIdleState(controller, this);
-        form.BR_newQuestionButton.setSelected(true);
+        form.currentState = new BrainRingQuestionIdleState(form, this);
     }
 
-    @Override
-    public void cleanUp() {
-        super.cleanUp();
-        super.nextQuestion();
-        pauseTimer();
-    }
 }
