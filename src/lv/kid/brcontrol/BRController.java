@@ -5,6 +5,8 @@ import gnu.io.*;
 import java.io.*;
 import java.util.*;
 
+import processing.app.RunnerException;
+
 public class BRController {
     public static int MAX_MESSAGE = 8;
 
@@ -20,8 +22,10 @@ public class BRController {
         buttonListeners.add(buttonListener);
     }
 
-    public BRController(String myPort) throws NoSuchPortException, PortInUseException, UnsupportedCommOperationException, IOException {
+    public BRController(String myPort) throws NoSuchPortException, PortInUseException, UnsupportedCommOperationException, IOException, RunnerException {
         final int baud = 115200;
+        if (myPort == null)
+            myPort = new ComPortLocator().getComPort();
         System.out.println("Using port: " + myPort);
 
         System.out.println("Baud:" + baud);
