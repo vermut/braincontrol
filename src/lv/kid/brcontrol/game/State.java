@@ -30,9 +30,11 @@ public abstract class State implements ButtonListener, ActionListener {
     public void buttonReleased(int teamNo) {
     }
 
+    // Called when a team queues it's answer
     public void buttonQueued(int teamNo) {
     }
 
+    // Call to give right to answer to a team
     public void queuePressed(int teamNo) {
 
     }
@@ -50,13 +52,17 @@ public abstract class State implements ButtonListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         timeLeft--;
-        controller.setText((byte) 0xFF, 2, "  " + (timeLeft / 60) + ":" + (timeLeft < 10 ? "0" : "") + (timeLeft - (timeLeft / 60) * 60));
+        displayTime();
 
         if (timeLeft < 0) {
             controller.setText((byte) 0xFF, 2, "Time out!");
 //            pauseTimer();
             timeOut();
         }
+    }
+
+    protected void displayTime() {
+        controller.setText((byte) 0xFF, 2, "  " + (timeLeft / 60) + ":" + ((timeLeft % 60) < 10 ? "0" : "") + (timeLeft % 60));
     }
 
     protected void timeOut() {

@@ -74,7 +74,7 @@ public class GuessMelodyState extends State {
 
         history.add(teamNo);
 
-        form.GM_queueAnswer(teamNo);
+        form.guessM.GM_queueAnswer(teamNo);
         controller.setLeds(BRController.teamToByte(teamNo));
         controller.setText(BRController.teamToByte(teamNo), 2, "Queued " + history.size());
     }
@@ -83,7 +83,7 @@ public class GuessMelodyState extends State {
     public void cleanUp() {
         super.cleanUp();
         super.nextQuestion();
-        form.GM_clearQueue();
+        form.guessM.GM_clearQueue();
         history.clear();
         pauseTimer();
         currentTeam = 0;
