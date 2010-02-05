@@ -41,7 +41,6 @@
     <file url="file://$PROJECT_DIR$/src/lv/kid/brcontrol/BRCommanderForm.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/lv/kid/brcontrol/BRController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/lv/kid/brcontrol/TeamButtonQueuePanel.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/lv/kid/brcontrol/Test.java" charset="UTF-8" />
   </component>
   <component name="InspectionProjectProfileManager">
     <option name="PROJECT_PROFILE" value="Project Default" />
@@ -218,7 +217,7 @@
   </component>
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectKey">
-    <option name="state" value="project://C:\Documents and Settings\Home\IdeaProjects\BR_Control\BR_Control.ipr" />
+    <option name="state" value="https://braincontrol.googlecode.com/svn/trunk/BR_Control.ipr" />
   </component>
   <component name="ProjectModuleManager">
     <modules>
@@ -239,7 +238,7 @@
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="" />
+    <mapping directory="" vcs="svn" />
   </component>
   <component name="libraryTable">
     <library name="Arduino">

@@ -76,8 +76,8 @@ public class BRCommanderForm implements ButtonListener {
     public static final String FOOBAR2000_LOCATION = "foobar2000";
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("BR Commander");
-        frame.setContentPane(new BRCommanderForm(args[0]).tabbedPane);
+        JFrame frame = new JFrame("BrainRing Controller");
+        frame.setContentPane(new BRCommanderForm(args.length == 0 ? null : args[0]).tabbedPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
