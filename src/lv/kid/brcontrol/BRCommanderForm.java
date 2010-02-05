@@ -107,8 +107,6 @@ public class BRCommanderForm implements ButtonListener {
             e.printStackTrace();
         }
 
-        playSound("sound/start.wav");
-
         currentState = new NoState(controller);
         controller.addListener(this);
 

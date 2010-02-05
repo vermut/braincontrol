@@ -28,6 +28,7 @@ public class BrainRingQuestionState extends BrainRingImpl {
         form.BR_startTimeButton.setSelected(false);
         form.BR_startTimeButton.setEnabled(true);
         form.BR_bigClock.init();
+        form.playSound(BrainRing.SOUND_ARM);
     }
 
     @Override

@@ -20,7 +20,11 @@ public class BrainRing {
     private final BRCommanderForm form;
 
     public Team[] teams = new Team[8];
-    private static final String IDLE = "Idle";
+    public static final String SOUND_ARM = "sound/arm.wav";
+    public static final String SOUND_START = "sound/start.wav";
+    public static final String SOUND_FALSTART = "sound/falstart.wav";
+    public static final String SOUND_5SEC = "sound/5sec.wav";
+    public static final String SOUND_TIMEOUT = "sound/timeout.wav";
 
     public BrainRing(final BRCommanderForm form) {
         this.form = form;
@@ -52,7 +56,6 @@ public class BrainRing {
                     if (form.currentState instanceof BrainRingQuestionIdleState) {
                         BrainRingQuestionIdleState brainRingQuestionIdleState = (BrainRingQuestionIdleState) form.currentState;
                         brainRingQuestionIdleState.resumeState();
-
                     }
                 }
             }
@@ -105,7 +108,7 @@ public class BrainRing {
                 teams[i].show(false);
             else {
                 teams[i].getTeamName().setText(activeTeam);
-                teams[i].getStatus().setText(IDLE);
+                teams[i].getStatus().setText(Team.IDLE);
                 teams[i].show(true);
             }
         }
@@ -137,7 +140,7 @@ public class BrainRing {
         });
         form.BR_ScoreTable.add(team.getInc1(), cc.xy(6, row));
 
-        team.setStatus(new JToggleButton(IDLE));
+        team.setStatus(new JToggleButton(Team.IDLE));
         team.getStatus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -170,6 +173,7 @@ public class BrainRing {
         private final int teamNo;
         private static final String FALSTART = "Falstart";
         private static final String ANSWER = "Answer!";
+        private static final String IDLE = "Idle";
 
         public Team(BRController controller, int i) {
             this.controller = controller;
@@ -277,6 +281,7 @@ public class BrainRing {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             form.currentState.timeLeft += timeShift;
+            form.currentState.displayTime();
         }
     }
 }

@@ -16,6 +16,7 @@ public class BrainRingAnswerState extends BrainRingImpl {
         super(controller);
         this.form = form;
         this.brainRing = form.brainRing;
+        form.playSound(BrainRing.SOUND_START);
 
         resumeTimer();
     }
@@ -28,12 +29,5 @@ public class BrainRingAnswerState extends BrainRingImpl {
 
         // Ignore others
         form.currentState = new BrainRingAnswerIdleState(form, this);
-    }
-
-    @Override
-    public void cleanUp() {
-        super.cleanUp();
-        super.nextQuestion();
-        pauseTimer();
     }
 }
