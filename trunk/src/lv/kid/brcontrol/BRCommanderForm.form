@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="lv.kid.brcontrol.BRCommanderForm">
+  <tabbedpane id="f0a75" binding="tabbedPane">
+    <constraints>
+      <xy x="20" y="5" width="744" height="437"/>
+    </constraints>
+    <properties>
+      <enabled value="true"/>
+      <font/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="d4cf1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <tabbedpane title="Brain Ring"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="d9dc7" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="9316a" binding="BR_ClockPanel" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="4a81f" class="lv.kid.brcontrol.ClockDisplay" binding="bigClock">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="1.0" weighty="1.0"/>
+                    </constraints>
+                  </component>
+                </children>
+              </grid>
+              <grid id="947c7" binding="BR_MainPanel" layout-manager="FormLayout">
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:4dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <colspec value="right:52px:noGrow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:32px:grow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:p:noGrow"/>
+                <colspec value="fill:p:noGrow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:max(d;4px):noGrow"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="ab6b" class="javax.swing.JLabel" binding="BR_Team1">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="Label"/>
+                    </properties>
+                  </component>
+                  <component id="6ad61" class="javax.swing.JTextField" binding="txtScore1">
+                    <constraints>
+                      <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                      <forms defaultalign-horz="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="2ce90" class="javax.swing.JLabel" binding="timeLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="8" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms defaultalign-horz="false"/>
+                    </constraints>
+                    <properties>
+                      <font size="96" style="1"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="0"/>
+                      <text value="0:00"/>
+                    </properties>
+                  </component>
+                  <component id="c1271" class="javax.swing.JButton" binding="BR_dec1">
+                    <constraints>
+                      <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <horizontalTextPosition value="0"/>
+                      <text value="-1"/>
+                    </properties>
+                  </component>
+                  <component id="b59e6" class="javax.swing.JButton" binding="BR_inc1">
+                    <constraints>
+                      <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="+1"/>
+                    </properties>
+                  </component>
+                  <component id="26fdf" class="javax.swing.JToggleButton" binding="BR_Status1">
+                    <constraints>
+                      <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="Status"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="befde" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <tabbedpane title="Guess a melody"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="2af2d" layout-manager="FormLayout">
+            <rowspec value="center:84px:noGrow"/>
+            <rowspec value="top:4dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:4dlu:noGrow"/>
+            <rowspec value="center:d:grow"/>
+            <colspec value="fill:0dlu:grow"/>
+            <colspec value="left:4dlu:noGrow"/>
+            <colspec value="fill:max(d;4px):noGrow"/>
+            <colspec value="left:4dlu:noGrow"/>
+            <colspec value="fill:317px:noGrow"/>
+            <constraints border-constraint="West"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="8a263" layout-manager="FormLayout">
+                <rowspec value="center:31px:noGrow"/>
+                <rowspec value="top:4dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <colspec value="fill:d:noGrow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:max(d;4px):noGrow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:max(d;4px):noGrow"/>
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-vert="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="bb0ab" class="javax.swing.JButton" binding="GM_playButton" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="Play"/>
+                    </properties>
+                  </component>
+                  <component id="1633b" class="javax.swing.JButton" binding="GM_pauseButton" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="Pause/Unpause"/>
+                    </properties>
+                  </component>
+                  <component id="33c1e" class="javax.swing.JButton" binding="GM_restartButton" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="Next song"/>
+                    </properties>
+                  </component>
+                  <component id="64deb" class="javax.swing.JLabel" binding="GM_Timer">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms defaultalign-horz="false" defaultalign-vert="false"/>
+                    </constraints>
+                    <properties>
+                      <font size="36" style="1"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="0"/>
+                      <text value="0:00"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="48d44" binding="GM_queue" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints>
+                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-horz="false" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <background color="-6684775"/>
+                </properties>
+                <border type="bevel-lowered" title="Button Queue"/>
+                <children/>
+              </grid>
+              <component id="d0702" class="javax.swing.JTable" binding="GM_scoreTable">
+                <constraints>
+                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="50"/>
+                  </grid>
+                  <forms defaultalign-horz="false" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <autoCreateRowSorter value="false"/>
+                  <enabled value="true"/>
+                </properties>
+              </component>
+              <hspacer id="5a860">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-horz="false"/>
+                </constraints>
+              </hspacer>
+              <grid id="87e8" layout-manager="FormLayout">
+                <rowspec value="center:d:noGrow"/>
+                <rowspec value="top:4dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <colspec value="fill:d:noGrow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:p:noGrow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:p:noGrow"/>
+                <colspec value="left:4dlu:noGrow"/>
+                <colspec value="fill:p:grow"/>
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-vert="false"/>
+                </constraints>
+                <properties/>
+                <border type="none" title="Add Score"/>
+                <children>
+                  <component id="44367" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <labelFor value="fd6c1"/>
+                      <text value="Team:"/>
+                    </properties>
+                  </component>
+                  <component id="fd6c1" class="javax.swing.JTextField" binding="GM_teamTextField" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                      <forms defaultalign-horz="false"/>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                    </properties>
+                  </component>
+                  <component id="b1784" class="javax.swing.JButton" binding="GM_a1Button" default-binding="true">
+                    <constraints>
+                      <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="+1"/>
+                    </properties>
+                  </component>
+                  <component id="e18da" class="javax.swing.JButton" binding="GM_a2Button" default-binding="true">
+                    <constraints>
+                      <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="+2"/>
+                    </properties>
+                  </component>
+                  <hspacer id="d94f2">
+                    <constraints>
+                      <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms defaultalign-horz="false"/>
+                    </constraints>
+                  </hspacer>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="1a059" layout-manager="FormLayout">
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:d:grow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <colspec value="right:max(d;4px):noGrow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="center:57px:noGrow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <tabbedpane title="Teams"/>
+        </constraints>
+        <properties/>
+        <border type="none" title="Enter team names"/>
+        <children>
+          <component id="271f6" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <font style="1"/>
+              <text value="Enabled"/>
+            </properties>
+          </component>
+          <component id="4299f" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <font style="1"/>
+              <text value="Team name"/>
+            </properties>
+          </component>
+          <component id="eed81" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <font style="1"/>
+              <text value="No"/>
+            </properties>
+          </component>
+          <component id="c6774" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="1."/>
+            </properties>
+          </component>
+          <component id="5344" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="2."/>
+            </properties>
+          </component>
+          <component id="2dec" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="3."/>
+            </properties>
+          </component>
+          <component id="8e293" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="4."/>
+            </properties>
+          </component>
+          <component id="c3a5e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="5."/>
+            </properties>
+          </component>
+          <component id="f4702" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="6."/>
+            </properties>
+          </component>
+          <component id="1e93f" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="7."/>
+            </properties>
+          </component>
+          <component id="b9bf0" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="8."/>
+            </properties>
+          </component>
+          <component id="b14d4" class="javax.swing.JCheckBox" binding="teamEnabled1">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="e9b6a" class="javax.swing.JCheckBox" binding="teamEnabled2">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="6dbeb" class="javax.swing.JCheckBox" binding="teamEnabled3">
+            <constraints>
+              <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="af4b" class="javax.swing.JCheckBox" binding="teamEnabled4">
+            <constraints>
+              <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="df407" class="javax.swing.JCheckBox" binding="teamEnabled5">
+            <constraints>
+              <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="4d8d2" class="javax.swing.JCheckBox" binding="teamEnabled6">
+            <constraints>
+              <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="dcac1" class="javax.swing.JCheckBox" binding="teamEnabled7">
+            <constraints>
+              <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="ea1ef" class="javax.swing.JCheckBox" binding="teamEnabled8">
+            <constraints>
+              <grid row="16" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="68dfc" class="javax.swing.JTextField" binding="teamName1">
+            <constraints>
+              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 1"/>
+            </properties>
+          </component>
+          <component id="98552" class="javax.swing.JTextField" binding="teamName2">
+            <constraints>
+              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 2"/>
+            </properties>
+          </component>
+          <component id="4e820" class="javax.swing.JTextField" binding="teamName3">
+            <constraints>
+              <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 3"/>
+            </properties>
+          </component>
+          <component id="c014c" class="javax.swing.JTextField" binding="teamName4">
+            <constraints>
+              <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 4"/>
+            </properties>
+          </component>
+          <component id="5054b" class="javax.swing.JTextField" binding="teamName5">
+            <constraints>
+              <grid row="10" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 5"/>
+            </properties>
+          </component>
+          <component id="401c5" class="javax.swing.JTextField" binding="teamName6">
+            <constraints>
+              <grid row="12" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 6"/>
+            </properties>
+          </component>
+          <component id="65423" class="javax.swing.JTextField" binding="teamName7">
+            <constraints>
+              <grid row="14" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 7"/>
+            </properties>
+          </component>
+          <component id="51ae0" class="javax.swing.JTextField" binding="teamName8">
+            <constraints>
+              <grid row="16" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Team 8"/>
+            </properties>
+          </component>
+          <component id="b5a0a" class="javax.swing.JButton" binding="applyButton" default-binding="true">
+            <constraints>
+              <grid row="20" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="&amp;Apply"/>
+            </properties>
+          </component>
+          <component id="8a04b" class="javax.swing.JToggleButton" binding="testModeButton">
+            <constraints>
+              <grid row="20" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties>
+              <text value="Test Mode"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="8ad44" layout-manager="FormLayout">
+        <rowspec value="center:d:noGrow"/>
+        <colspec value="fill:max(d;4px):noGrow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="fill:400px:noGrow"/>
+        <colspec value="left:4dlu:noGrow"/>
+        <colspec value="fill:max(d;4px):noGrow"/>
+        <constraints>
+          <tabbedpane title="Settings"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="7a601" class="javax.swing.JTextField" binding="foobar2000LocationTextField" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="4dc8a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <labelFor value="7a601"/>
+              <text value="Foobar2000 location:"/>
+            </properties>
+          </component>
+          <component id="e69b2" class="javax.swing.JButton" binding="foobarBrowseButton">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="Browse..."/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </tabbedpane>
+</form>
