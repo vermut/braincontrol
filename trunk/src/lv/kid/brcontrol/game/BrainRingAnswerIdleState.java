@@ -20,6 +20,7 @@ public class BrainRingAnswerIdleState extends BrainRingImpl {
         this.previousState = previousState;
 
         form.BR_startTimeButton.setSelected(true);
+        form.playSound(BrainRing.SOUND_ARM);
     }
 
     @Override
@@ -34,8 +35,10 @@ public class BrainRingAnswerIdleState extends BrainRingImpl {
         }
 
         form.currentState = previousState;
+        form.playSound(BrainRing.SOUND_START);
         previousState.timeLeft = 20;
         previousState.displayTime();
         previousState.resumeTimer();
+
     }
 }

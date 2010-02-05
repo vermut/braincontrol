@@ -22,6 +22,7 @@ public class BrainRingQuestionIdleState extends BrainRingImpl {
 
         form.BR_newQuestionButton.setSelected(true);
         form.BR_startTimeButton.setEnabled(false);
+        form.playSound(BrainRing.SOUND_FALSTART);
     }
 
     @Override
@@ -38,5 +39,7 @@ public class BrainRingQuestionIdleState extends BrainRingImpl {
         
         form.BR_startTimeButton.setEnabled(true);
         form.currentState = previousState;
+        form.playSound(BrainRing.SOUND_ARM);
+
     }
 }

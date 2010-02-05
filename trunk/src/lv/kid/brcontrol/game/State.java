@@ -55,14 +55,14 @@ public abstract class State implements ButtonListener, ActionListener {
         timeLeft--;
         displayTime();
 
-        if (timeLeft < 0) {
+        if (timeLeft <= 0) {
             controller.setText((byte) 0xFF, 2, "Time out!");
 //            pauseTimer();
             timeOut();
         }
     }
 
-    protected void displayTime() {
+    public void displayTime() {
         controller.setText((byte) 0xFF, 2, "  " + (timeLeft / 60) + ":" + ((timeLeft % 60) < 10 ? "0" : "") + (timeLeft % 60));
     }
 
