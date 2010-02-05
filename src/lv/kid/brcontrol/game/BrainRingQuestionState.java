@@ -24,7 +24,6 @@ public class BrainRingQuestionState extends BrainRingImpl {
 
         timeLeft = 60;
         displayTime();
-        super.actionPerformed(null);
         
         form.BR_startTimeButton.setSelected(false);
         form.BR_startTimeButton.setEnabled(true);

@@ -5,9 +5,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import lv.kid.brcontrol.game.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -116,7 +116,7 @@ public class BrainRing {
         CellConstraints cc = new CellConstraints();
         form.BR_ScoreTable.add(team.getTeamName(), cc.xy(1, row));
 
-        team.setScore(new JTextField());
+        team.setScore(new JTextField("0"));
         form.BR_ScoreTable.add(team.getScore(), cc.xy(3, row, CellConstraints.FILL, CellConstraints.DEFAULT));
 
         team.setDec1(new JButton("-1"));
@@ -138,6 +138,24 @@ public class BrainRing {
         form.BR_ScoreTable.add(team.getInc1(), cc.xy(6, row));
 
         team.setStatus(new JToggleButton(IDLE));
+        team.getStatus().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() instanceof JToggleButton) {
+                    JToggleButton jToggleButton = (JToggleButton) actionEvent.getSource();
+                    if (!jToggleButton.isSelected()) {
+                        // Unban
+                        form.controller.dequeue(team.teamNo);
+                        team.arm();
+                    } else {
+                        // ban
+                        form.controller.forcequeue(team.teamNo);
+                        team.falstart();
+                    }
+                }
+
+            }
+        });
         form.BR_ScoreTable.add(team.getStatus(), cc.xy(8, row));
     }
 
@@ -157,14 +175,6 @@ public class BrainRing {
             this.controller = controller;
             teamNo = i;
         }
-
-        /*   public Team(JLabel teamName, JTextField score, JButton dec1, JButton inc1, JToggleButton status) {
-           this.teamName = teamName;
-           this.score = score;
-           this.dec1 = dec1;
-           this.inc1 = inc1;
-           this.status = status;
-       } */
 
         public void show(boolean show) {
             teamName.setVisible(show);
@@ -232,6 +242,7 @@ public class BrainRing {
             if (!teamName.isVisible())
                 return;
 
+            highlight(false);
             status.setText(ARMED);
             controller.setText(BRController.teamToByte(teamNo), 2, ARMED);
             status.setSelected(false);
@@ -252,7 +263,7 @@ public class BrainRing {
         }
 
         public void highlight(boolean b) {
-            teamName.setBackground(b ? Color.red : null);
+            teamName.setForeground(b ? Color.red : Color.black);
         }
     }
 

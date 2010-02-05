@@ -23,8 +23,6 @@ public class BrainRingAnswerState extends BrainRingImpl {
     @Override
     public void buttonQueued(int teamNo) {
         pauseTimer();
-        timeLeft = 20;
-        displayTime();
 
         brainRing.teams[teamNo].answered();
 

@@ -34,6 +34,8 @@ public class BrainRingAnswerIdleState extends BrainRingImpl {
         }
 
         form.currentState = previousState;
+        previousState.timeLeft = 20;
+        previousState.displayTime();
         previousState.resumeTimer();
     }
 }
