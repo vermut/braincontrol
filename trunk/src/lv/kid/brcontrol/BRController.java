@@ -1,11 +1,13 @@
 package lv.kid.brcontrol;
 
 import gnu.io.*;
-
-import java.io.*;
-import java.util.*;
-
 import processing.app.RunnerException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.LinkedList;
+import java.util.Vector;
 
 public class BRController {
     public static int MAX_MESSAGE = 8;
@@ -178,6 +180,10 @@ public class BRController {
 
     public void dequeue(int teamNo) {
         buttonPressQueue.remove(new Integer(teamNo));
+    }
+
+    public void forcequeue(int teamNo) {
+        buttonPressQueue.add(new Integer(teamNo));
     }
 
     public static byte teamToByte(int button) {

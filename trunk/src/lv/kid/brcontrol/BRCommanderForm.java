@@ -3,12 +3,16 @@ package lv.kid.brcontrol;
 import lv.kid.brcontrol.game.NoState;
 import lv.kid.brcontrol.game.State;
 import lv.kid.brcontrol.game.TestingState;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.prefs.Preferences;
 
 /**
@@ -55,12 +59,12 @@ public class BRCommanderForm implements ButtonListener {
     JPanel BR_ClockPanel;
     JPanel BR_ScoreTable;
     public JToggleButton BR_newQuestionButton;
-     JButton BR_Add1;
-     JButton BR_Dec1;
+    JButton BR_Add1;
+    JButton BR_Dec1;
     public JToggleButton BR_startTimeButton;
     JButton BR_resetButton;
-     JButton BR_Dec10;
-     JButton BR_Add10;
+    JButton BR_Dec10;
+    JButton BR_Add10;
 
     public BRController controller;
     public State currentState;
@@ -102,6 +106,9 @@ public class BRCommanderForm implements ButtonListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        playSound("sound/start.wav");
+
         currentState = new NoState(controller);
         controller.addListener(this);
 
@@ -175,4 +182,25 @@ public class BRCommanderForm implements ButtonListener {
         return teamName[teamNo].getText();
     }
 
+
+    public void playSound(String filename) {
+        // Open an input stream  to the audio file.
+        InputStream in;
+        
+        try {
+            // Create an AudioStream object from the input stream.
+            in = new FileInputStream(filename);
+            AudioStream as = new AudioStream(in);
+
+            // Use the static class member "player" from class AudioPlayer to play clip.
+            AudioPlayer.player.start(as);
+
+            // Similarly, to stop the audio.
+            // AudioPlayer.player.stop(as);
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+    }
 }
