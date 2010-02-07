@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project relativePaths="false" version="4">
+  <component name="AntConfiguration">
+    <defaultAnt bundledAnt="true" />
+  </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
   </component>
@@ -241,14 +244,6 @@
     <mapping directory="" vcs="svn" />
   </component>
   <component name="libraryTable">
-    <library name="Arduino">
-      <CLASSES>
-        <root url="file://E:/Projects/arduino-0012/lib" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://E:/Projects/arduino-0012/lib" recursive="false" />
-    </library>
     <library name="libs">
       <CLASSES>
         <root url="file://$PROJECT_DIR$/lib" />
