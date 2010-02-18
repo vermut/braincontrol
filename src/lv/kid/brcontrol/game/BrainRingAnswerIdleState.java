@@ -30,15 +30,23 @@ public class BrainRingAnswerIdleState extends BrainRingImpl {
     }
 
     public void resumeState() {
+        boolean allTeamsOut = true;
         for (BrainRing.Team team : brainRing.teams) {
             team.highlight(false);
+            if (!team.isOut())
+                allTeamsOut = false;
         }
 
-        form.currentState = previousState;
-        form.playSound(BrainRing.SOUND_START);
-        previousState.timeLeft = 20;
-        previousState.displayTime();
-        previousState.resumeTimer();
-
+        if (allTeamsOut) {
+            // Go to timeout State
+            timeOut();
+        } else {
+            // Continue game
+            form.currentState = previousState;
+            form.playSound(BrainRing.SOUND_START);
+            previousState.timeLeft = 20;
+            previousState.displayTime();
+            previousState.resumeTimer();
+        }
     }
 }
