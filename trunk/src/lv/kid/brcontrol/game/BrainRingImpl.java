@@ -23,15 +23,15 @@ public abstract class BrainRingImpl extends State {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        super.actionPerformed(actionEvent);   
+        super.actionPerformed(actionEvent);
         if (timeLeft == 5)
             form.playSound(BrainRing.SOUND_5SEC);
     }
 
-   @Override
+    @Override
     protected void timeOut() {
-       pauseTimer();
-       form.currentState = new BrainRingTimeoutIdleState(form);   
+        pauseTimer();
+        form.currentState = new BrainRingTimeoutIdleState(form);
     }
 
     @Override
@@ -46,7 +46,7 @@ public abstract class BrainRingImpl extends State {
     @Override
     public void cleanUp() {
         super.cleanUp();
-        nextQuestion();
+        resetControllerState();
         pauseTimer();
     }
 }

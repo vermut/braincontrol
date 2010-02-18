@@ -4,8 +4,8 @@ import lv.kid.brcontrol.BRController;
 import lv.kid.brcontrol.ButtonListener;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,7 +39,7 @@ public abstract class State implements ButtonListener, ActionListener {
 
     }
 
-    public void nextQuestion() {
+    public void resetControllerState() {
         controller.clearQueue();
         controller.unblinkLeds((byte) 0xFF);
         controller.unsetLeds((byte) 0xFF);

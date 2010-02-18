@@ -64,6 +64,9 @@ public class BrainRing {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (form.BR_startTimeButton.isSelected()) {
+                    form.currentState.cleanUp();
+
+                    // Save time from NewQuestionState
                     int timeLeft = form.currentState.timeLeft;
                     form.currentState = new BrainRingAnswerState(form.controller, form);
                     form.currentState.timeLeft = timeLeft;
@@ -268,6 +271,10 @@ public class BrainRing {
 
         public void highlight(boolean b) {
             teamName.setForeground(b ? Color.red : Color.black);
+        }
+
+        public boolean isOut() {
+            return status.isSelected();
         }
     }
 

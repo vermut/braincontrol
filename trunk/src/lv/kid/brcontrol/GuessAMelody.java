@@ -35,7 +35,7 @@ public class GuessAMelody {
 
         form.GM_restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                form.currentState.nextQuestion();
+                form.currentState.resetControllerState();
             }
         });
 

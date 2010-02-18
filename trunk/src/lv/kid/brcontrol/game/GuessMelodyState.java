@@ -1,12 +1,12 @@
 package lv.kid.brcontrol.game;
 
-import lv.kid.brcontrol.BRController;
 import lv.kid.brcontrol.BRCommanderForm;
+import lv.kid.brcontrol.BRController;
 
-import java.io.IOException;
-import java.util.Set;
-import java.util.HashSet;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -82,7 +82,7 @@ public class GuessMelodyState extends State {
     @Override
     public void cleanUp() {
         super.cleanUp();
-        super.nextQuestion();
+        super.resetControllerState();
         form.guessM.GM_clearQueue();
         history.clear();
         pauseTimer();
@@ -91,7 +91,7 @@ public class GuessMelodyState extends State {
     }
 
     @Override
-    public void nextQuestion() {
+    public void resetControllerState() {
         cleanUp();
 
         try {
