@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.Vector;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BRController {
     public static int MAX_MESSAGE = 8;
@@ -19,9 +21,28 @@ public class BRController {
     private Vector<ButtonListener> buttonListeners = new Vector<ButtonListener>();
     private byte lastState = 0;
 
+    public final Lock lock = new ReentrantLock();
+
 
     public void addListener(ButtonListener buttonListener) {
         buttonListeners.add(buttonListener);
+    }
+
+    public static BRController getControllerInstance(String port) {
+        try {
+            return new BRController(port);
+        } catch (NoSuchPortException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (PortInUseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (UnsupportedCommOperationException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (RunnerException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return null;
     }
 
     public BRController(String myPort) throws NoSuchPortException, PortInUseException, UnsupportedCommOperationException, IOException, RunnerException {
@@ -55,22 +76,32 @@ public class BRController {
 
                             for (int i = 0; i < 8; i++) {
                                 if ((c & (1 << i)) > 0) {
-                                    if ((lastState & (1 << i)) == 0)
+                                    if ((lastState & (1 << i)) == 0) {
+                                        lock.lock();
                                         for (ButtonListener listener : buttonListeners) {
                                             listener.buttonPressed(i);
                                         }
+                                        lock.unlock();
+                                    }
 
                                     if (!buttonPressQueue.contains(i)) {
-                                        buttonPressQueue.add(i);
-                                        for (ButtonListener listener : buttonListeners) {
-                                            listener.buttonQueued(i);
+                                        {
+                                            lock.lock();
+                                            buttonPressQueue.add(i);
+                                            for (ButtonListener listener : buttonListeners) {
+                                                listener.buttonQueued(i);
+                                            }
+                                            lock.unlock();
                                         }
                                     }
                                 } else {
-                                    if ((lastState & (1 << i)) > 0)
+                                    if ((lastState & (1 << i)) > 0) {
+                                        lock.lock();
                                         for (ButtonListener listener : buttonListeners) {
                                             listener.buttonReleased(i);
                                         }
+                                        lock.unlock();
+                                    }
                                 }
                             }
 

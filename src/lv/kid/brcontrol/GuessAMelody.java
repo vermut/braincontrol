@@ -29,7 +29,7 @@ public class GuessAMelody {
         form.GM_playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 form.currentState.cleanUp();
-                form.currentState = new GuessMelodyState(form.controller, form);
+                form.setCurrentState(new GuessMelodyState(form.controller, form));
             }
         });
 

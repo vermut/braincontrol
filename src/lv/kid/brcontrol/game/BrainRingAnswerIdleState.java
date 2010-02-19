@@ -33,7 +33,7 @@ public class BrainRingAnswerIdleState extends BrainRingImpl {
         boolean allTeamsOut = true;
         for (BrainRing.Team team : brainRing.teams) {
             team.highlight(false);
-            if (!team.isOut())
+            if (team.isActive() && !team.isOut())
                 allTeamsOut = false;
         }
 
@@ -42,7 +42,7 @@ public class BrainRingAnswerIdleState extends BrainRingImpl {
             timeOut();
         } else {
             // Continue game
-            form.currentState = previousState;
+            form.setCurrentState(previousState);
             form.playSound(BrainRing.SOUND_START);
             previousState.timeLeft = 20;
             previousState.displayTime();

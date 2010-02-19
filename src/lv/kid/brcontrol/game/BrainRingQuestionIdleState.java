@@ -1,6 +1,5 @@
 package lv.kid.brcontrol.game;
 
-import lv.kid.brcontrol.BRController;
 import lv.kid.brcontrol.BRCommanderForm;
 import lv.kid.brcontrol.BrainRing;
 
@@ -31,14 +30,13 @@ public class BrainRingQuestionIdleState extends BrainRingImpl {
         controller.dequeue(teamNo);
     }
 
-    public void resumeState()
-    {
-         for (BrainRing.Team team : brainRing.teams) {
+    public void resumeState() {
+        for (BrainRing.Team team : brainRing.teams) {
             team.highlight(false);
         }
-        
+
         form.BR_startTimeButton.setEnabled(true);
-        form.currentState = previousState;
+        form.setCurrentState(previousState);
         form.playSound(BrainRing.SOUND_ARM);
 
     }

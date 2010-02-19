@@ -18,13 +18,15 @@ public class BrainRingQuestionState extends BrainRingImpl {
         this.form = form;
         this.brainRing = form.brainRing;
 
+        resetControllerState();
+
         for (BrainRing.Team team : brainRing.teams) {
             team.arm();
         }
 
         timeLeft = 60;
         displayTime();
-        
+
         form.BR_startTimeButton.setSelected(false);
         form.BR_startTimeButton.setEnabled(true);
         form.BR_bigClock.init();
@@ -33,14 +35,14 @@ public class BrainRingQuestionState extends BrainRingImpl {
 
     @Override
     public void buttonQueued(int teamNo) {
+        // Ignore others
+        form.setCurrentState(new BrainRingQuestionIdleState(form, this));
+
         // Falstart
         timeLeft = 20;
         displayTime();
 
         brainRing.teams[teamNo].falstart();
-
-        // Ignore others
-        form.currentState = new BrainRingQuestionIdleState(form, this);
     }
 
 }

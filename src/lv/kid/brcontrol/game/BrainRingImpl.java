@@ -31,7 +31,7 @@ public abstract class BrainRingImpl extends State {
     @Override
     protected void timeOut() {
         pauseTimer();
-        form.currentState = new BrainRingTimeoutIdleState(form);
+        form.setCurrentState(new BrainRingTimeoutIdleState(form));
     }
 
     @Override
@@ -46,7 +46,6 @@ public abstract class BrainRingImpl extends State {
     @Override
     public void cleanUp() {
         super.cleanUp();
-        resetControllerState();
         pauseTimer();
     }
 }
