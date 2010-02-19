@@ -29,7 +29,7 @@ public class BrainRing {
     public BrainRing(final BRCommanderForm form) {
         this.form = form;
 
-        form.BR_ScoreTable.setLayout(new FormLayout("right:52px:noGrow,left:4dlu:noGrow,fill:32px:grow,left:4dlu:noGrow,fill:p:noGrow,fill:p:noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow",
+        form.BR_ScoreTable.setLayout(new FormLayout("right:82px:noGrow,left:4dlu:noGrow,fill:32px:grow,left:4dlu:noGrow,fill:p:noGrow,fill:p:noGrow,left:4dlu:noGrow,fill:max(d;4px):noGrow",
                 "center:max(d;4px):noGrow,top:4dlu:noGrow," +
                         "center:max(d;4px):noGrow,top:4dlu:noGrow," +
                         "center:max(d;4px):noGrow,top:4dlu:noGrow," +
@@ -48,14 +48,16 @@ public class BrainRing {
         form.BR_newQuestionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (form.BR_newQuestionButton.isSelected()) {
-                    form.currentState.cleanUp();
-                    form.currentState = new BrainRingQuestionState(form.controller, form);
-                    form.BR_newQuestionButton.setSelected(false);
-                } else {
-                    if (form.currentState instanceof BrainRingQuestionIdleState) {
-                        BrainRingQuestionIdleState brainRingQuestionIdleState = (BrainRingQuestionIdleState) form.currentState;
-                        brainRingQuestionIdleState.resumeState();
+                synchronized (form.controller) {
+                    if (form.BR_newQuestionButton.isSelected()) {
+                        form.currentState.cleanUp();
+                        form.setCurrentState(new BrainRingQuestionState(form.controller, form));
+                        form.BR_newQuestionButton.setSelected(false);
+                    } else {
+                        if (form.currentState instanceof BrainRingQuestionIdleState) {
+                            BrainRingQuestionIdleState brainRingQuestionIdleState = (BrainRingQuestionIdleState) form.currentState;
+                            brainRingQuestionIdleState.resumeState();
+                        }
                     }
                 }
             }
@@ -63,20 +65,27 @@ public class BrainRing {
         form.BR_startTimeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (form.BR_startTimeButton.isSelected()) {
-                    form.currentState.cleanUp();
+                form.controller.lock.lock();
+                if (!form.BR_startTimeButton.isEnabled())
+                    return;
 
-                    // Save time from NewQuestionState
-                    int timeLeft = form.currentState.timeLeft;
-                    form.currentState = new BrainRingAnswerState(form.controller, form);
-                    form.currentState.timeLeft = timeLeft;
-                    form.BR_startTimeButton.setSelected(false);
-                } else {
+                if (!form.BR_startTimeButton.isSelected()) {
                     if (form.currentState instanceof BrainRingAnswerIdleState) {
                         BrainRingAnswerIdleState brainRingAnswerIdleState = (BrainRingAnswerIdleState) form.currentState;
                         brainRingAnswerIdleState.resumeState();
                     }
+                } else {
+                    if (form.currentState instanceof BrainRingQuestionState) {
+                        form.currentState.cleanUp();
+
+                        // Save time from NewQuestionState
+                        int timeLeft = form.currentState.timeLeft;
+                        form.setCurrentState(new BrainRingAnswerState(form.controller, form));
+                        form.currentState.timeLeft = timeLeft;
+                        form.BR_startTimeButton.setSelected(false);
+                    }
                 }
+                form.controller.lock.unlock();
             }
         });
         form.BR_resetButton.addActionListener(new ActionListener() {
@@ -91,7 +100,7 @@ public class BrainRing {
                 for (Team team : teams) {
                     team.reset();
                     form.currentState.cleanUp();
-                    form.currentState = new NoState(form.controller);
+                    form.setCurrentState(new NoState(form.controller));
                 }
             }
         });
@@ -118,14 +127,11 @@ public class BrainRing {
     }
 
     private void createTeamUI(final Team team, int row) {
-        team.setTeamName(new JLabel());
         CellConstraints cc = new CellConstraints();
         form.BR_ScoreTable.add(team.getTeamName(), cc.xy(1, row));
 
-        team.setScore(new JTextField("0"));
         form.BR_ScoreTable.add(team.getScore(), cc.xy(3, row, CellConstraints.FILL, CellConstraints.DEFAULT));
 
-        team.setDec1(new JButton("-1"));
         team.getDec1().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -134,7 +140,6 @@ public class BrainRing {
         });
         form.BR_ScoreTable.add(team.getDec1(), cc.xy(5, row));
 
-        team.setInc1(new JButton("+1"));
         team.getInc1().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -143,7 +148,6 @@ public class BrainRing {
         });
         form.BR_ScoreTable.add(team.getInc1(), cc.xy(6, row));
 
-        team.setStatus(new JToggleButton(Team.IDLE));
         team.getStatus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -159,9 +163,9 @@ public class BrainRing {
                         team.falstart();
                     }
                 }
-
             }
         });
+
         form.BR_ScoreTable.add(team.getStatus(), cc.xy(8, row));
     }
 
@@ -178,9 +182,20 @@ public class BrainRing {
         private static final String ANSWER = "Answer!";
         private static final String IDLE = "Idle";
 
+        private static Font defaultFont = new Font("Dialog", Font.PLAIN, 11);
+        private static Font highlightFont = new Font("Dialog", Font.BOLD, 18);
+
         public Team(BRController controller, int i) {
             this.controller = controller;
             teamNo = i;
+
+            setTeamName(new JLabel());
+            setScore(new JTextField("0"));
+            setDec1(new JButton("-1"));
+            setInc1(new JButton("+1"));
+            setStatus(new JToggleButton(Team.IDLE));
+
+            highlight(false);
         }
 
         public void show(boolean show) {
@@ -252,6 +267,7 @@ public class BrainRing {
             highlight(false);
             status.setText(ARMED);
             controller.setText(BRController.teamToByte(teamNo), 2, ARMED);
+            controller.setLeds(BRController.teamToByte(teamNo));
             status.setSelected(false);
         }
 
@@ -259,6 +275,8 @@ public class BrainRing {
             status.setText(FALSTART);
             status.setSelected(true);
             controller.setText(BRController.teamToByte(teamNo), 2, FALSTART);
+            controller.unsetLeds(BRController.teamToByte(teamNo));
+
             highlight(true);
         }
 
@@ -270,11 +288,27 @@ public class BrainRing {
         }
 
         public void highlight(boolean b) {
-            teamName.setForeground(b ? Color.red : Color.black);
+            teamName.setForeground(b ? Color.GREEN : Color.black);
+            teamName.setFont(b ? highlightFont : defaultFont);
+            if (b)
+                controller.blinkLeds(BRController.teamToByte(teamNo));
+            else {
+                controller.unblinkLeds(BRController.teamToByte(teamNo));
+                if (isOut())
+                    controller.unsetLeds(BRController.teamToByte(teamNo));
+            }
         }
 
         public boolean isOut() {
             return status.isSelected();
+        }
+
+        public void setText(String teamName) {
+            controller.setText(BRController.teamToByte(teamNo), 2, teamName);
+        }
+
+        public boolean isActive() {
+            return teamName.isVisible();
         }
     }
 

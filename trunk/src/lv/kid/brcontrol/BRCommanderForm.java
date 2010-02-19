@@ -65,8 +65,9 @@ public class BRCommanderForm implements ButtonListener {
     JButton BR_resetButton;
     JButton BR_Dec10;
     JButton BR_Add10;
+    public JLabel BR_millis;
 
-    public BRController controller;
+    public final BRController controller;
     public State currentState;
     private JCheckBox[] teamEnabled = {teamEnabled1, teamEnabled2, teamEnabled3, teamEnabled4, teamEnabled5, teamEnabled6, teamEnabled7, teamEnabled8};
     private JTextField[] teamName = {teamName1, teamName2, teamName3, teamName4, teamName5, teamName6, teamName7, teamName8};
@@ -89,6 +90,7 @@ public class BRCommanderForm implements ButtonListener {
     }
 
     public void buttonPressed(int button) {
+        System.out.println("BUTTON currentState = " + currentState);
         currentState.buttonPressed(button);
     }
 
@@ -101,12 +103,7 @@ public class BRCommanderForm implements ButtonListener {
     }
 
     public BRCommanderForm(String myPort) {
-        try {
-            controller = new BRController(myPort);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        controller = BRController.getControllerInstance(myPort);
         currentState = new NoState(controller);
         controller.addListener(this);
 
@@ -184,7 +181,7 @@ public class BRCommanderForm implements ButtonListener {
     public void playSound(String filename) {
         // Open an input stream  to the audio file.
         InputStream in;
-        
+
         try {
             // Create an AudioStream object from the input stream.
             in = new FileInputStream(filename);
@@ -200,5 +197,10 @@ public class BRCommanderForm implements ButtonListener {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+    }
+
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
+        System.out.println("currentState = " + currentState);
     }
 }

@@ -362,14 +362,18 @@
               <grid id="947c7" binding="BR_MainPanel" layout-manager="FormLayout">
                 <rowspec value="center:34px:noGrow"/>
                 <rowspec value="top:4dlu:noGrow"/>
-                <rowspec value="top:68px:noGrow"/>
-                <rowspec value="top:6dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:4dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:4dlu:noGrow"/>
+                <rowspec value="top:8px:noGrow"/>
+                <rowspec value="top:4dlu:noGrow"/>
                 <rowspec value="top:p:noGrow"/>
                 <rowspec value="top:4dlu:noGrow"/>
                 <rowspec value="top:max(p;4px):grow"/>
                 <rowspec value="top:4dlu:noGrow"/>
                 <rowspec value="center:max(d;4px):noGrow"/>
-                <colspec value="right:273px:noGrow"/>
+                <colspec value="right:315px:noGrow"/>
                 <colspec value="left:7dlu:noGrow"/>
                 <colspec value="fill:35dlu:noGrow"/>
                 <colspec value="left:4dlu:noGrow"/>
@@ -382,7 +386,7 @@
                 <children>
                   <component id="2ce90" class="javax.swing.JLabel" binding="BR_timeLabel">
                     <constraints>
-                      <grid row="0" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="7" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                       <forms defaultalign-horz="false"/>
                     </constraints>
                     <properties>
@@ -397,7 +401,7 @@
                     <colspec value="fill:32px:grow"/>
                     <colspec value="left:4dlu:noGrow"/>
                     <constraints>
-                      <grid row="4" column="0" row-span="5" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="8" column="0" row-span="5" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                       <forms defaultalign-horz="false" defaultalign-vert="false"/>
                     </constraints>
                     <properties/>
@@ -406,7 +410,7 @@
                   </grid>
                   <component id="660d8" class="javax.swing.JToggleButton" binding="BR_newQuestionButton">
                     <constraints>
-                      <grid row="4" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="8" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                       <forms/>
                     </constraints>
                     <properties>
@@ -422,18 +426,9 @@
                       <text value="+1s"/>
                     </properties>
                   </component>
-                  <component id="3f944" class="javax.swing.JButton" binding="BR_Dec1">
-                    <constraints>
-                      <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                      <forms/>
-                    </constraints>
-                    <properties>
-                      <text value="-1s"/>
-                    </properties>
-                  </component>
                   <component id="259af" class="javax.swing.JToggleButton" binding="BR_startTimeButton">
                     <constraints>
-                      <grid row="6" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="10" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                       <forms/>
                     </constraints>
                     <properties>
@@ -443,20 +438,11 @@
                   </component>
                   <component id="9c827" class="javax.swing.JButton" binding="BR_resetButton">
                     <constraints>
-                      <grid row="8" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="12" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                       <forms/>
                     </constraints>
                     <properties>
                       <text value="Reset"/>
-                    </properties>
-                  </component>
-                  <component id="5c1ad" class="javax.swing.JButton" binding="BR_Dec10">
-                    <constraints>
-                      <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                      <forms/>
-                    </constraints>
-                    <properties>
-                      <text value="-10s"/>
                     </properties>
                   </component>
                   <component id="731c0" class="javax.swing.JButton" binding="BR_Add10">
@@ -467,6 +453,33 @@
                     <properties>
                       <horizontalAlignment value="0"/>
                       <text value="+10s"/>
+                    </properties>
+                  </component>
+                  <component id="ccfbf" class="javax.swing.JLabel" binding="BR_millis">
+                    <constraints>
+                      <grid row="4" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <component id="3f944" class="javax.swing.JButton" binding="BR_Dec1">
+                    <constraints>
+                      <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="-1s"/>
+                    </properties>
+                  </component>
+                  <component id="5c1ad" class="javax.swing.JButton" binding="BR_Dec10">
+                    <constraints>
+                      <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties>
+                      <text value="-10s"/>
                     </properties>
                   </component>
                 </children>

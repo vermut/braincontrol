@@ -12,8 +12,13 @@ import lv.kid.brcontrol.BrainRing;
  * To change this template use File | Settings | File Templates.
  */
 public class BrainRingAnswerState extends BrainRingImpl {
+    public final long startMillis;
+
     public BrainRingAnswerState(BRController controller, BRCommanderForm form) {
         super(controller);
+        startMillis = System.currentTimeMillis();
+        form.BR_millis.setText("");
+
         this.form = form;
         this.brainRing = form.brainRing;
         form.playSound(BrainRing.SOUND_START);
@@ -23,11 +28,16 @@ public class BrainRingAnswerState extends BrainRingImpl {
 
     @Override
     public void buttonQueued(int teamNo) {
+        form.BR_millis.setText(String.valueOf(System.currentTimeMillis() - startMillis) + " ms");
+
         pauseTimer();
 
+        for (BrainRing.Team team : brainRing.teams) {
+            team.setText(brainRing.teams[teamNo].getTeamName().getText());
+        }
         brainRing.teams[teamNo].answered();
 
         // Ignore others
-        form.currentState = new BrainRingAnswerIdleState(form, this);
+        form.setCurrentState(new BrainRingAnswerIdleState(form, this));
     }
 }
