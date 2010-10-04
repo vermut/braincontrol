@@ -66,6 +66,9 @@ public class BRCommanderForm implements ButtonListener {
     JButton BR_Dec10;
     JButton BR_Add10;
     public JLabel BR_millis;
+    private JTextField tcmpLocationTextField;
+    private JButton tcmpBrowseButton;
+    public JComboBox playerComboBox;
 
     public final BRController controller;
     public State currentState;
@@ -75,6 +78,12 @@ public class BRCommanderForm implements ButtonListener {
 
     // Preference keys for this package
     public static final String FOOBAR2000_LOCATION = "foobar2000";
+    public static final String TCMP_LOCATION = "TCMPControl";
+    public static final String PLAYER_IN_USE = "player_in_user";
+
+    public static final int PLAYER_FOOBAR2000 = 0;
+    public static final int PLAYER_TCMP = 1;
+
     public final BrainRing brainRing;
     public final GuessAMelody guessM;
 
@@ -113,6 +122,8 @@ public class BRCommanderForm implements ButtonListener {
         guessM = new GuessAMelody(this);
 
         foobar2000LocationTextField.setText(prefs.get(FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe"));
+        tcmpLocationTextField.setText(prefs.get(TCMP_LOCATION, "C:\\Program Files\\CoreCodec\\The Core Media Player\\TCMPControl.exe"));
+        playerComboBox.setSelectedIndex(Integer.valueOf(prefs.get(PLAYER_IN_USE, "0")));
 
         applyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -153,6 +164,23 @@ public class BRCommanderForm implements ButtonListener {
             }
         });
 
+        tcmpBrowseButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fc = new JFileChooser("Select TCMPControl.exe...");
+                int returnVal = fc.showOpenDialog(BRCommanderForm.this.tabbedPane);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    try {
+                        tcmpLocationTextField.setText(file.getCanonicalPath());
+                        prefs.put(TCMP_LOCATION, file.getCanonicalPath());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
 
         foobarBrowseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -171,6 +199,12 @@ public class BRCommanderForm implements ButtonListener {
             }
         });
 
+        playerComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                prefs.put(PLAYER_IN_USE, String.valueOf(playerComboBox.getSelectedIndex()));
+            }
+        });
     }
 
     public String getTeamName(int teamNo) {

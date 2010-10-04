@@ -31,10 +31,12 @@ public abstract class State implements ButtonListener, ActionListener {
     }
 
     // Called when a team queues it's answer
+
     public void buttonQueued(int teamNo) {
     }
 
     // Call to give right to answer to a team
+
     public void queuePressed(int teamNo) {
 
     }

@@ -667,6 +667,10 @@
       </grid>
       <grid id="8ad44" layout-manager="FormLayout">
         <rowspec value="center:d:noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
         <colspec value="fill:max(d;4px):noGrow"/>
         <colspec value="left:4dlu:noGrow"/>
         <colspec value="fill:400px:noGrow"/>
@@ -704,6 +708,56 @@
             </constraints>
             <properties>
               <text value="Browse..."/>
+            </properties>
+          </component>
+          <component id="d65c7" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <labelFor value="7a601"/>
+              <text value="TCMP location:"/>
+            </properties>
+          </component>
+          <component id="a16cf" class="javax.swing.JTextField" binding="tcmpLocationTextField">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <forms defaultalign-horz="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="29302" class="javax.swing.JButton" binding="tcmpBrowseButton">
+            <constraints>
+              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text value="Browse..."/>
+            </properties>
+          </component>
+          <component id="ba54d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <labelFor value="7a601"/>
+              <text value="Use player:"/>
+            </properties>
+          </component>
+          <component id="e5b88" class="javax.swing.JComboBox" binding="playerComboBox" default-binding="true">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="Foobar2000 (audio)"/>
+                <item value="The Core Media Player (multi)"/>
+              </model>
             </properties>
           </component>
         </children>
