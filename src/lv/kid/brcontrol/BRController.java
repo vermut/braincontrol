@@ -52,15 +52,30 @@ public class BRController {
         System.out.println("Using port: " + myPort);
 
         System.out.println("Baud:" + baud);
-        CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(myPort);
+        try {
+            CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(myPort);
 
-        SerialPort port = (SerialPort) portId.open("serial talk", 4000);
-        input = port.getInputStream();
-        output = port.getOutputStream();
-        port.setSerialPortParams(baud,
-                SerialPort.DATABITS_8,
-                SerialPort.STOPBITS_1,
-                SerialPort.PARITY_NONE);
+            SerialPort port = (SerialPort) portId.open("serial talk", 4000);
+            input = port.getInputStream();
+            output = port.getOutputStream();
+            port.setSerialPortParams(baud,
+                    SerialPort.DATABITS_8,
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);
+        } catch (NoSuchPortException e) {
+            System.out.println("No BrainControl detected. Working offline!");
+            input = new InputStream() {
+                @Override
+                public int read() throws IOException {
+                    return 0;
+                }
+            };
+            output = new OutputStream() {
+                @Override
+                public void write(int i) throws IOException {
+                }
+            };
+        }
 
         Runnable buttonQueueThread = new Runnable() {
             public void run() {

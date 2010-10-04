@@ -30,12 +30,8 @@ public class GuessMelodyState extends State {
 
     private void play() {
         controller.clearQueue();
-        try {
-            Runtime.getRuntime().
-                    exec(form.prefs.get(BRCommanderForm.FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe") + " /play");
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        getPlayer().play();
+
 
         startTimer(60);
     }
@@ -94,29 +90,24 @@ public class GuessMelodyState extends State {
     public void resetControllerState() {
         cleanUp();
 
-        try {
-            Runtime.getRuntime().
-                    exec(form.prefs.get(BRCommanderForm.FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe") + " /next");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        getPlayer().next();
+
+
         play();
     }
 
     public void pause() {
         controller.unblinkLeds((byte) 0xFF);
 
-        if (timer.isRunning())
+        if (timer.isRunning()) {
             pauseTimer();
-        else
+            getPlayer().pause();
+        } else {
             resumeTimer();
-
-        try {
-            Process p = Runtime.getRuntime().
-                    exec(form.prefs.get(BRCommanderForm.FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe") + " /pause");
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            getPlayer().unpause();
         }
+
+
     }
 
     public void addScore(int i) {
@@ -128,5 +119,101 @@ public class GuessMelodyState extends State {
         }
 
         form.GM_scoreTable.setValueAt(score + i, currentTeam, 1);
+    }
+
+    Player getPlayer() {
+        if (form.playerComboBox.getSelectedIndex() == BRCommanderForm.PLAYER_FOOBAR2000)
+            return new Player() {
+                @Override
+                void play() {
+                    try {
+                        Runtime.getRuntime().
+                                exec(form.prefs.get(BRCommanderForm.FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe") + " /play");
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+
+                }
+
+                @Override
+                void pause() {
+                    try {
+                        Process p = Runtime.getRuntime().
+                                exec(form.prefs.get(BRCommanderForm.FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe") + " /pause");
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+
+                void unpause() {
+                    pause();
+                }
+
+                @Override
+                void next() {
+                    try {
+                        Runtime.getRuntime().
+                                exec(form.prefs.get(BRCommanderForm.FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe") + " /next");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+
+        if (form.playerComboBox.getSelectedIndex() == BRCommanderForm.PLAYER_TCMP)
+            return new Player() {
+                @Override
+                void play() {
+                    try {
+                        Runtime.getRuntime().
+                                exec(form.prefs.get(BRCommanderForm.TCMP_LOCATION, "C:\\Program Files\\CoreCodec\\The Core Media Player\\TCMPControl.exe") + " -cmd " + TCMP_CMD_Play);
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+
+                @Override
+                void unpause() {
+                    play();
+                }
+
+                void pause() {
+                    try {
+                        Runtime.getRuntime().
+                                exec(form.prefs.get(BRCommanderForm.TCMP_LOCATION, "C:\\Program Files\\CoreCodec\\The Core Media Player\\TCMPControl.exe") + " -cmd " + TCMP_CMD_Pause);
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+
+                @Override
+                void next() {
+                    try {
+                        Runtime.getRuntime().
+                                exec(form.prefs.get(BRCommanderForm.TCMP_LOCATION, "C:\\Program Files\\CoreCodec\\The Core Media Player\\TCMPControl.exe") + " -cmd " + TCMP_CMD_Next);
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+            };
+
+        return null;
+    }
+
+    public abstract class Player {
+        public static final int TCMP_CMD_Play = 1;
+        public static final int TCMP_CMD_Pause = 2;
+        public static final int TCMP_CMD_Stop = 3;
+        public static final int TCMP_CMD_Next = 4;
+
+
+        abstract void play();
+
+        abstract void pause();
+
+        abstract void unpause();
+
+        abstract void next();
     }
 }
