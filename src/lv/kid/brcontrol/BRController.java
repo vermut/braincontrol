@@ -12,13 +12,13 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BRController {
-    public static int MAX_MESSAGE = 8;
+    private static final int MAX_MESSAGE = 8;
 
     private InputStream input;
     private OutputStream output;
 
-    public LinkedList<Integer> buttonPressQueue = new LinkedList<Integer>();
-    private Vector<ButtonListener> buttonListeners = new Vector<ButtonListener>();
+    public final LinkedList<Integer> buttonPressQueue = new LinkedList<Integer>();
+    private final Vector<ButtonListener> buttonListeners = new Vector<ButtonListener>();
     private byte lastState = 0;
 
     public final Lock lock = new ReentrantLock();
@@ -31,21 +31,13 @@ public class BRController {
     public static BRController getControllerInstance(String port) {
         try {
             return new BRController(port);
-        } catch (NoSuchPortException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (PortInUseException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (UnsupportedCommOperationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (RunnerException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    public BRController(String myPort) throws NoSuchPortException, PortInUseException, UnsupportedCommOperationException, IOException, RunnerException {
+    private BRController(String myPort) throws PortInUseException, UnsupportedCommOperationException, IOException, RunnerException {
         final int baud = 115200;
         if (myPort == null)
             myPort = new ComPortLocator().getComPort();
@@ -148,7 +140,7 @@ public class BRController {
     }
 
 
-    public boolean hasData() {
+    boolean hasData() {
         try {
             return input.available() > 0;
         } catch (IOException e) {
@@ -159,7 +151,7 @@ public class BRController {
 
     public void setText(byte port, int lineNo, String text) {
         final String outText = text.substring(0, Math.min(MAX_MESSAGE, text.length()));
-        message(String.valueOf(lineNo).charAt(0), port, padRight(outText, 8));
+        message(String.valueOf(lineNo).charAt(0), port, padRight(outText, MAX_MESSAGE));
     }
 
     public void setLeds(byte leds) {
@@ -229,7 +221,7 @@ public class BRController {
     }
 
     public void forcequeue(int teamNo) {
-        buttonPressQueue.add(new Integer(teamNo));
+        buttonPressQueue.add(teamNo);
     }
 
     public static byte teamToByte(int button) {
@@ -240,7 +232,7 @@ public class BRController {
         return buttonPressQueue.size();
     }
 
-    public static String padRight(String s, int n) {
+    private static String padRight(String s, int n) {
         return String.format("%1$-" + n + "s", s);
     }
 }

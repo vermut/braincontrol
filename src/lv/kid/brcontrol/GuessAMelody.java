@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class GuessAMelody {
     private final BRCommanderForm form;
 
-    private Box GM_queueBox;
+    private final Box GM_queueBox;
 
     public GuessAMelody(final BRCommanderForm form) {
         this.form = form;

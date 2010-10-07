@@ -11,7 +11,7 @@ import lv.kid.brcontrol.BrainRing;
  * To change this template use File | Settings | File Templates.
  */
 public class BrainRingQuestionIdleState extends BrainRingImpl {
-    public final State previousState;
+    private final State previousState;
 
     public BrainRingQuestionIdleState(BRCommanderForm form, State previousState) {
         super(form.controller);

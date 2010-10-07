@@ -14,10 +14,10 @@ import java.awt.event.ActionEvent;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class BrainRingImpl extends State {
-    protected BrainRing brainRing;
-    protected BRCommanderForm form;
+    BrainRing brainRing;
+    BRCommanderForm form;
 
-    public BrainRingImpl(BRController controller) {
+    BrainRingImpl(BRController controller) {
         super(controller);
     }
 

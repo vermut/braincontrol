@@ -6,14 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BigClock extends JFrame implements ActionListener {
-    private ClockDisplay clock;
+    private final ClockDisplay clock;
 
     public static void main(String[] args) {
         BigClock application = new BigClock();
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public BigClock() {
+    private BigClock() {
         super("Analog Clock");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();

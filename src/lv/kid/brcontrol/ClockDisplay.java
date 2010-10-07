@@ -12,11 +12,18 @@ import java.awt.*;
  */
 public class ClockDisplay extends JPanel {
     public int hours, minutes, seconds;
-    int centerX, centerY;
-    int rClock, rNumbers, rHourHand, rMinHand, rSecHand;
-    double angle;
-    int width1, width2, height;
-    Font f;
+    private int centerX;
+    private int centerY;
+    private int rClock;
+    private int rNumbers;
+    private int rHourHand;
+    private int rMinHand;
+    private int rSecHand;
+    private double angle;
+    private int width1;
+    private int width2;
+    private int height;
+    private Font f;
 
     public void init() {
         Graphics g = getGraphics();

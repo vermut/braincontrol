@@ -12,7 +12,7 @@ import java.awt.*;
  * Time: 00:22:57
  * To change this template use File | Settings | File Templates.
  */
-public class TeamButtonQueuePanel extends JPanel {
+class TeamButtonQueuePanel extends JPanel {
     private BRCommanderForm commanderForm;
 
     public TeamButtonQueuePanel() {

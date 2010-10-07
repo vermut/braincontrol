@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 public class BrainRing {
     private final BRCommanderForm form;
 
-    public Team[] teams = new Team[8];
+    public final Team[] teams = new Team[8];
     public static final String SOUND_ARM = "sound/arm.wav";
     public static final String SOUND_START = "sound/start.wav";
     public static final String SOUND_FALSTART = "sound/falstart.wav";
@@ -182,8 +182,8 @@ public class BrainRing {
         private static final String ANSWER = "Answer!";
         private static final String IDLE = "Idle";
 
-        private static Font defaultFont = new Font("Dialog", Font.PLAIN, 11);
-        private static Font highlightFont = new Font("Dialog", Font.BOLD, 18);
+        private static final Font defaultFont = new Font("Dialog", Font.PLAIN, 11);
+        private static final Font highlightFont = new Font("Dialog", Font.BOLD, 18);
 
         public Team(BRController controller, int i) {
             this.controller = controller;

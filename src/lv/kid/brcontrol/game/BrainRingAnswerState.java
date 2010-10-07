@@ -12,7 +12,7 @@ import lv.kid.brcontrol.BrainRing;
  * To change this template use File | Settings | File Templates.
  */
 public class BrainRingAnswerState extends BrainRingImpl {
-    public final long startMillis;
+    private final long startMillis;
 
     public BrainRingAnswerState(BRController controller, BRCommanderForm form) {
         super(controller);

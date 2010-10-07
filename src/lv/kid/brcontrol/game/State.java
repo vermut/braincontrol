@@ -15,11 +15,11 @@ import java.awt.event.ActionListener;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class State implements ButtonListener, ActionListener {
-    protected BRController controller;
-    protected Timer timer = new Timer(1000, this);
+    final BRController controller;
+    final Timer timer = new Timer(1000, this);
     public int timeLeft;
 
-    public State(BRController controller) {
+    State(BRController controller) {
         this.controller = controller;
         timer.setRepeats(true);
     }
@@ -31,12 +31,10 @@ public abstract class State implements ButtonListener, ActionListener {
     }
 
     // Called when a team queues it's answer
-
     public void buttonQueued(int teamNo) {
     }
 
     // Call to give right to answer to a team
-
     public void queuePressed(int teamNo) {
 
     }
@@ -68,20 +66,20 @@ public abstract class State implements ButtonListener, ActionListener {
         controller.setText((byte) 0xFF, 2, "  " + (timeLeft / 60) + ":" + ((timeLeft % 60) < 10 ? "0" : "") + (timeLeft % 60));
     }
 
-    protected void timeOut() {
+    void timeOut() {
 
     }
 
-    protected void startTimer(int pTimeLeft) {
+    void startTimer(int pTimeLeft) {
         timeLeft = pTimeLeft;
         timer.start();
     }
 
-    protected void pauseTimer() {
+    void pauseTimer() {
         timer.stop();
     }
 
-    public void resumeTimer() {
+    void resumeTimer() {
         timer.start();
     }
 }

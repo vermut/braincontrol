@@ -1,5 +1,6 @@
 package lv.kid.brcontrol;
 
+import lv.kid.brcontrol.game.GuessMelodyState;
 import lv.kid.brcontrol.game.NoState;
 import lv.kid.brcontrol.game.State;
 import lv.kid.brcontrol.game.TestingState;
@@ -69,27 +70,29 @@ public class BRCommanderForm implements ButtonListener {
     private JTextField tcmpLocationTextField;
     private JButton tcmpBrowseButton;
     public JComboBox playerComboBox;
+    private JCheckBox chkMicActivated;
+    private JTextField txtMicLevel;
 
     public final BRController controller;
     public State currentState;
-    private JCheckBox[] teamEnabled = {teamEnabled1, teamEnabled2, teamEnabled3, teamEnabled4, teamEnabled5, teamEnabled6, teamEnabled7, teamEnabled8};
-    private JTextField[] teamName = {teamName1, teamName2, teamName3, teamName4, teamName5, teamName6, teamName7, teamName8};
+    private final JCheckBox[] teamEnabled = {teamEnabled1, teamEnabled2, teamEnabled3, teamEnabled4, teamEnabled5, teamEnabled6, teamEnabled7, teamEnabled8};
+    private final JTextField[] teamName = {teamName1, teamName2, teamName3, teamName4, teamName5, teamName6, teamName7, teamName8};
     public final Preferences prefs;
 
     // Preference keys for this package
     public static final String FOOBAR2000_LOCATION = "foobar2000";
     public static final String TCMP_LOCATION = "TCMPControl";
-    public static final String PLAYER_IN_USE = "player_in_user";
+    private static final String PLAYER_IN_USE = "player_in_user";
 
     public static final int PLAYER_FOOBAR2000 = 0;
     public static final int PLAYER_TCMP = 1;
 
     public final BrainRing brainRing;
     public final GuessAMelody guessM;
+    private final VolumeMeter volumeMeter;
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, IllegalAccessException, InstantiationException {
-        UIManager.setLookAndFeel(
-                UIManager.getSystemLookAndFeelClassName());
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         JFrame frame = new JFrame("BrainRing Controller");
         frame.setContentPane(new BRCommanderForm(args.length == 0 ? null : args[0]).tabbedPane);
@@ -111,10 +114,49 @@ public class BRCommanderForm implements ButtonListener {
         currentState.buttonQueued(button);
     }
 
-    public BRCommanderForm(String myPort) {
+    private BRCommanderForm(String myPort) {
         controller = BRController.getControllerInstance(myPort);
         currentState = new NoState(controller);
         controller.addListener(this);
+        volumeMeter = new VolumeMeter(new Runnable() {
+            String strVA = "#################################";
+            int lastLevel = 0;
+
+            @Override
+            public void run() {
+                if (chkMicActivated.isSelected()) {
+                    double averageLevel = volumeMeter.getAverageLevel();
+                    double reqLevel = Double.valueOf(txtMicLevel.getText());
+
+                    int level = (int) ((averageLevel / reqLevel) * 8);
+                    // Show level
+                    if (lastLevel != level) {
+                        controller.setText((byte) 0xFF, 2, strVA.substring(0, level));
+                        lastLevel = level;
+
+                        if (currentState instanceof GuessMelodyState) {
+                            GuessMelodyState guessMelodyState = (GuessMelodyState) currentState;
+                            guessMelodyState.setVolumeActive(averageLevel > reqLevel);
+
+                        }
+                        // Turn on buttons and lights, if level is strong enough
+                        if (averageLevel > reqLevel) {
+                            controller.setLeds((byte) 0xFF);
+                        } else {
+                            controller.unsetLeds((byte) 0xFF);
+                        }
+                    }
+                } else {
+                    // Always on
+                    if (currentState instanceof GuessMelodyState) {
+                        GuessMelodyState guessMelodyState = (GuessMelodyState) currentState;
+                        guessMelodyState.setVolumeActive(true);
+
+                    }
+                }
+
+            }
+        });
 
         prefs = Preferences.userNodeForPackage(getClass());
 

@@ -20,6 +20,7 @@ import java.util.HashSet;
 public class ComPortLocator {
 
     //return the most likely com port, maybe
+
     public String getComPort() throws RunnerException {
         String retstr = null;
         String userdir = System.getProperty("java.io.tmpdir") + File.separator;
@@ -34,28 +35,26 @@ public class ComPortLocator {
             try {
                 Process process = Runtime.getRuntime().exec(commandSize);
                 process.waitFor();
-                BufferedReader r = new BufferedReader(new FileReader(userdir
-                        + "tmp.reg"));
+                BufferedReader r = new BufferedReader(new FileReader(userdir + "tmp.reg"));
                 String s = trimNulls(r.readLine());
                 while (null != s) {
                     int p = s.indexOf(tag);
                     if (p != -1)
-                        r1.add(s.substring(p + tag.length() + 1,
-                                s.length() - 1));
+                        r1.add(s.substring(p + tag.length() + 1, s.length() - 1));
                     s = trimNulls(r.readLine());
                 }
                 r.close();
 
             } catch (Exception e) {
-                throw new RunnerException(e.getMessage());
+                System.err.println("Cannot execute regedit: " + e.getMessage());
+               return null;
             }
 
             HashSet<String> r2 = new HashSet<String>();
 
             Enumeration portList = CommPortIdentifier.getPortIdentifiers();
             while (portList.hasMoreElements()) {
-                CommPortIdentifier portId = (CommPortIdentifier) portList
-                        .nextElement();
+                CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
                 if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
                     r2.add(portId.getName());
                 }
@@ -63,7 +62,7 @@ public class ComPortLocator {
 
             r1.retainAll(r2);// intersection of live ports and ftdi known ports
 
-            String[] ports = r1.toArray(new String[0]);
+            String[] ports = r1.toArray(new String[r1.size()]);
             if (ports.length == 0) {
                 throw new RunnerException("No Com port found");
             }
@@ -78,7 +77,7 @@ public class ComPortLocator {
         return retstr;
     }
 
-    public String trimNulls(String s) {//weird null thing going on with regedit
+    String trimNulls(String s) {//weird null thing going on with regedit
         if (s == null)
             return null;
         String r = "";
