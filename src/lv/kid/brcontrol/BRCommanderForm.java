@@ -69,6 +69,8 @@ public class BRCommanderForm implements ButtonListener {
     private JTextField tcmpLocationTextField;
     private JButton tcmpBrowseButton;
     public JComboBox playerComboBox;
+    private JTextField clampLocationTextField;
+    private JButton clampBrowseButton;
 
     public final BRController controller;
     public State currentState;
@@ -79,10 +81,12 @@ public class BRCommanderForm implements ButtonListener {
     // Preference keys for this package
     public static final String FOOBAR2000_LOCATION = "foobar2000";
     public static final String TCMP_LOCATION = "TCMPControl";
+    public static final String CLAMP_LOCATION = "CLAmp";
     public static final String PLAYER_IN_USE = "player_in_user";
 
     public static final int PLAYER_FOOBAR2000 = 0;
     public static final int PLAYER_TCMP = 1;
+    public static final int PLAYER_WINAMP = 2;
 
     public final BrainRing brainRing;
     public final GuessAMelody guessM;
@@ -123,6 +127,7 @@ public class BRCommanderForm implements ButtonListener {
 
         foobar2000LocationTextField.setText(prefs.get(FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe"));
         tcmpLocationTextField.setText(prefs.get(TCMP_LOCATION, "C:\\Program Files\\CoreCodec\\The Core Media Player\\TCMPControl.exe"));
+        clampLocationTextField.setText(prefs.get(CLAMP_LOCATION, "C:\\Program Files\\Winamp\\CLAmp.exe"));
         playerComboBox.setSelectedIndex(Integer.valueOf(prefs.get(PLAYER_IN_USE, "0")));
 
         applyButton.addActionListener(new ActionListener() {
@@ -181,6 +186,22 @@ public class BRCommanderForm implements ButtonListener {
             }
         });
 
+        clampBrowseButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fc = new JFileChooser("Select CLAmp.exe...");
+                int returnVal = fc.showOpenDialog(BRCommanderForm.this.tabbedPane);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    try {
+                        clampLocationTextField.setText(file.getCanonicalPath());
+                        prefs.put(CLAMP_LOCATION, file.getCanonicalPath());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         foobarBrowseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
