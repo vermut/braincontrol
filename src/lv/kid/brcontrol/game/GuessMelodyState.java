@@ -19,9 +19,9 @@ public class GuessMelodyState extends State {
     private final BRCommanderForm form;
 
     private final Set<Integer> history = new HashSet<Integer>();
-    private final Set<Integer> pressedOnLowVolume = new HashSet<Integer>();
+    private final Set<Integer> pressedOnInactive = new HashSet<Integer>();
     private int currentTeam = 0;
-    private boolean volumeActive = true;
+    private byte activeTeams = (byte) 0xFF;
 
     public GuessMelodyState(BRController controller, BRCommanderForm form) {
         super(controller);
@@ -65,8 +65,8 @@ public class GuessMelodyState extends State {
         if (timeLeft < 0)
             return;
 
-        if (!volumeActive) {
-            pressedOnLowVolume.add(teamNo)  ;
+        if ((BRController.teamToByte(teamNo) & activeTeams) == 0) {
+            pressedOnInactive.add(teamNo);
             return;
         }
 
@@ -86,8 +86,11 @@ public class GuessMelodyState extends State {
     @Override
     public void buttonReleased(int teamNo) {
         // Autoremove from queue lowVolume pressed, because we ignored them
-        if (pressedOnLowVolume.contains(teamNo))
+        if (pressedOnInactive.contains(teamNo))
+        {
+            pressedOnInactive.remove(teamNo);
             controller.dequeue(teamNo);
+        }
     }
 
     @Override
@@ -136,8 +139,8 @@ public class GuessMelodyState extends State {
         form.GM_scoreTable.setValueAt(score + i, currentTeam, 1);
     }
 
-      public void setVolumeActive(boolean volumeActive) {
-        this.volumeActive = volumeActive;
+      public void setActiveTeams(byte activeTeams) {
+        this.activeTeams = activeTeams;
     }
 
     Player getPlayer() {
