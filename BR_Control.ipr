@@ -242,6 +242,11 @@
                     <value>
                       <list>
                         <SvnBranchItem>
+                          <option name="creationDateMillis" value="1286488044975" />
+                          <option name="revision" value="18" />
+                          <option name="url" value="https://braincontrol.googlecode.com/svn/branches/mic_controlled" />
+                        </SvnBranchItem>
+                        <SvnBranchItem>
                           <option name="creationDateMillis" value="1265566848090" />
                           <option name="revision" value="14" />
                           <option name="url" value="https://braincontrol.googlecode.com/svn/branches/0.2" />

@@ -18,8 +18,10 @@ import java.util.Set;
 public class GuessMelodyState extends State {
     private final BRCommanderForm form;
 
-    Set<Integer> history = new HashSet<Integer>();
-    int currentTeam = 0;
+    private final Set<Integer> history = new HashSet<Integer>();
+    private final Set<Integer> pressedOnLowVolume = new HashSet<Integer>();
+    private int currentTeam = 0;
+    private boolean volumeActive = true;
 
     public GuessMelodyState(BRController controller, BRCommanderForm form) {
         super(controller);
@@ -63,6 +65,12 @@ public class GuessMelodyState extends State {
         if (timeLeft < 0)
             return;
 
+        if (!volumeActive) {
+            pressedOnLowVolume.add(teamNo)  ;
+            return;
+        }
+
+
         if (history.size() == 0) {
             pause();
             pauseTimer();
@@ -73,6 +81,13 @@ public class GuessMelodyState extends State {
         form.guessM.GM_queueAnswer(teamNo);
         controller.setLeds(BRController.teamToByte(teamNo));
         controller.setText(BRController.teamToByte(teamNo), 2, "Queued " + history.size());
+    }
+
+    @Override
+    public void buttonReleased(int teamNo) {
+        // Autoremove from queue lowVolume pressed, because we ignored them
+        if (pressedOnLowVolume.contains(teamNo))
+            controller.dequeue(teamNo);
     }
 
     @Override
@@ -121,6 +136,10 @@ public class GuessMelodyState extends State {
         form.GM_scoreTable.setValueAt(score + i, currentTeam, 1);
     }
 
+      public void setVolumeActive(boolean volumeActive) {
+        this.volumeActive = volumeActive;
+    }
+
     Player getPlayer() {
         if (form.playerComboBox.getSelectedIndex() == BRCommanderForm.PLAYER_FOOBAR2000)
             return new Player() {
@@ -138,7 +157,7 @@ public class GuessMelodyState extends State {
                 @Override
                 void pause() {
                     try {
-                        Process p = Runtime.getRuntime().
+                        Runtime.getRuntime().
                                 exec(form.prefs.get(BRCommanderForm.FOOBAR2000_LOCATION, "C:\\Program Files\\foobar2000\\foobar2000.exe") + " /pause");
                     } catch (IOException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -208,9 +227,7 @@ public class GuessMelodyState extends State {
                     } catch (IOException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
-
                 }
-
                 @Override
                 void pause() {
                     try {
