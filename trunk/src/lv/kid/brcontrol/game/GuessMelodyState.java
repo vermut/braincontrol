@@ -198,6 +198,47 @@ public class GuessMelodyState extends State {
                 }
             };
 
+        if (form.playerComboBox.getSelectedIndex() == BRCommanderForm.PLAYER_WINAMP)
+            return new Player() {
+                @Override
+                void play() {
+                    try {
+                        Runtime.getRuntime().exec(form.prefs.get(BRCommanderForm.CLAMP_LOCATION, "C:\\Program Files\\Winamp\\CLAmp.exe") + " /play");
+                        Runtime.getRuntime().exec(form.prefs.get(BRCommanderForm.CLAMP_LOCATION, "C:\\Program Files\\Winamp\\CLAmp.exe") + " /stopafter");
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+
+                }
+
+                @Override
+                void pause() {
+                    try {
+                        Runtime.getRuntime().exec(form.prefs.get(BRCommanderForm.CLAMP_LOCATION, "C:\\Program Files\\Winamp\\CLAmp.exe") + " /pause on");
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+
+                void unpause() {
+                    try {
+                        Runtime.getRuntime().exec(form.prefs.get(BRCommanderForm.CLAMP_LOCATION, "C:\\Program Files\\Winamp\\CLAmp.exe") + " /pause");
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+
+                @Override
+                void next() {
+                    try {
+                        Runtime.getRuntime().exec(form.prefs.get(BRCommanderForm.CLAMP_LOCATION, "C:\\Program Files\\Winamp\\CLAmp.exe") + " /next");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+
         return null;
     }
 

@@ -47,7 +47,8 @@ public class ComPortLocator {
                 r.close();
 
             } catch (Exception e) {
-                throw new RunnerException(e.getMessage());
+                System.out.println("e = " + e);
+                return null;
             }
 
             HashSet<String> r2 = new HashSet<String>();
