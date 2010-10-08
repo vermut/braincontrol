@@ -72,8 +72,9 @@ public class BRCommanderForm implements ButtonListener {
     public JComboBox playerComboBox;
     private JTextField clampLocationTextField;
     private JButton clampBrowseButton;
-    private JCheckBox chkMicActivated;
+    public JCheckBox chkMicActivated;
     private JTextField txtMicLevel;
+    public JCheckBox chkRunningLights;
 
     public final BRController controller;
     public State currentState;
@@ -94,6 +95,7 @@ public class BRCommanderForm implements ButtonListener {
     public final BrainRing brainRing;
     public final GuessAMelody guessM;
     private final VolumeMeter volumeMeter;
+    private RunningLights runningLightsTimer;
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, IllegalAccessException, InstantiationException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -106,7 +108,7 @@ public class BRCommanderForm implements ButtonListener {
     }
 
     public void buttonPressed(int button) {
-        System.out.println("BUTTON currentState = " + currentState);
+      //  System.out.println("BUTTON currentState = " + currentState);
         currentState.buttonPressed(button);
     }
 
@@ -122,6 +124,11 @@ public class BRCommanderForm implements ButtonListener {
         controller = BRController.getControllerInstance(myPort);
         currentState = new NoState(controller);
         controller.addListener(this);
+
+        // For running lights
+        runningLightsTimer = new RunningLights(this);
+
+        // For mic control
         volumeMeter = new VolumeMeter(new Runnable() {
             String strVA = "#################################";
             int lastLevel = 0;
@@ -132,7 +139,7 @@ public class BRCommanderForm implements ButtonListener {
                     double averageLevel = volumeMeter.getAverageLevel();
                     double reqLevel = Double.valueOf(txtMicLevel.getText());
 
-                    int level = Math.max(8, (int) ((averageLevel / reqLevel) * 8));
+                    int level = Math.min(8, (int) ((averageLevel / reqLevel) * 8));
                     // Show level
                     if (lastLevel != level) {
                         controller.setText((byte) 0xFF, 2, strVA.substring(0, level));
@@ -140,7 +147,7 @@ public class BRCommanderForm implements ButtonListener {
 
                         if (currentState instanceof GuessMelodyState) {
                             GuessMelodyState guessMelodyState = (GuessMelodyState) currentState;
-                            guessMelodyState.setVolumeActive(averageLevel > reqLevel);
+                            guessMelodyState.setActiveTeams((byte) (averageLevel > reqLevel ? 0xFF : 0x00));
 
                         }
                         // Turn on buttons and lights, if level is strong enough
@@ -152,9 +159,9 @@ public class BRCommanderForm implements ButtonListener {
                     }
                 } else {
                     // Always on
-                    if (currentState instanceof GuessMelodyState) {
+                    if (!chkRunningLights.isSelected() && currentState instanceof GuessMelodyState) {
                         GuessMelodyState guessMelodyState = (GuessMelodyState) currentState;
-                        guessMelodyState.setVolumeActive(true);
+                        guessMelodyState.setActiveTeams((byte) 0xFF);
 
                     }
                 }
@@ -199,6 +206,7 @@ public class BRCommanderForm implements ButtonListener {
 
                 guessM.updateTeams(activeTeams);
                 brainRing.updateTeams(activeTeams);
+                runningLightsTimer.updateTeams(activeTeams);
             }
         });
 
