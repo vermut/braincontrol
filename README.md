@@ -6,7 +6,7 @@
 
 2. Plug BR module to USB, wait for installation. 
 3. Check and note USB Serial Port number in "Device Manager" (i.e. COM7) 
-4. Download software from "Downloads" and unpack to C:\BR 
+4. Download software from "dist" and unpack to C:\BR 
 5. (Optional) In case of 64-bit system replace rxtxSerial.dll with 64-bit version [from here](http://jlog.org/rxtx-win.html). 
 6. [Install Java](https://ninite.com/java)
 7. Open command prompt as Administrator and type: 
